@@ -62,10 +62,21 @@ public class Lesson3Test extends TestBase{
     @Test
 	void negativeEmptyFields(){
         open("/automation-practice-form");
+
         $("#submit").click();
         $("#firstName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
         $("#genterWrapper").$(byText("Male")).shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
         $("#userNumber").shouldBe(match("background-image contains error icon",
+                el -> el.getCssValue("background-image").contains("stroke='%23dc3545'")));
+    }
+
+    @Test
+    void negativeWrongEmailFormat(){
+        open("/automation-practice-form");
+
+        $("#userEmail").setValue("ivanov@mail");
+        $("#submit").click();
+        $("#userEmail").shouldBe(match("background-image contains error icon",
                 el -> el.getCssValue("background-image").contains("stroke='%23dc3545'")));
     }
 }
