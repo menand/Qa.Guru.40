@@ -28,3 +28,4 @@ gradlew.bat
 /gradle
 /.gradle
 /build
+gradle.properties
