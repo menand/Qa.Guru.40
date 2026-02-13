@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Condition.text;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -28,11 +29,8 @@ public class Lesson3Test extends TestBase{
         $("#city").click();
         $(byText("Panipat")).click();
         $("#submit").click();
-
-
         //Checkings
-        $(".modal-header").shouldBe(text(
-                        "Thanks for submitting the form"));
+        $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Ivan Ivanov"));
         $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("ivanov@mail.ru"));
         $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
@@ -43,5 +41,31 @@ public class Lesson3Test extends TestBase{
         $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("avatar.png"));
         $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Sezam street, 1"));
         $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("Haryana Panipat"));
+    }
+
+    @Test
+    void positiveMinimumDataTest() {
+        open("/automation-practice-form");
+        //Filling
+        $("#firstName").setValue("Ivan");
+        $("#lastName").setValue("Ivanov");
+        $("#userNumber").setValue("1122334455");
+        $("#genterWrapper").$(byText("Male")).click();
+        $("#submit").click();
+        //Checkings
+        $(".modal-header").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Ivan Ivanov"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("1122334455"));
+    }
+
+    @Test
+	void negativeEmptyFields(){
+        open("/automation-practice-form");
+        $("#submit").click();
+        $("#firstName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        $("#genterWrapper").$(byText("Male")).shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
+        $("#userNumber").shouldBe(match("background-image contains error icon",
+                el -> el.getCssValue("background-image").contains("stroke='%23dc3545'")));
     }
 }
