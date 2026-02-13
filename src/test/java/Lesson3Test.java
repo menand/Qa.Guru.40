@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -34,25 +33,15 @@ public class Lesson3Test extends TestBase{
         //Checkings
         $(".modal-header").shouldBe(text(
                         "Thanks for submitting the form"));
-        $$("tr").find(Condition.text("Student Name"))
-                .$$("td").get(1).shouldHave(Condition.text("Ivan Ivanov"));
-        $$("tr").find(Condition.text("Student Email"))
-                .$$("td").get(1).shouldHave(Condition.text("ivanov@mail.ru"));
-        $$("tr").find(Condition.text("Gender"))
-                .$$("td").get(1).shouldHave(Condition.text("Male"));
-        $$("tr").find(Condition.text("Mobile"))
-                .$$("td").get(1).shouldHave(Condition.text("1122334455"));
-        $$("tr").find(Condition.text("Date of Birth"))
-                .$$("td").get(1).shouldHave(Condition.text("10 June,1985"));
-        $$("tr").find(Condition.text("Subjects"))
-                .$$("td").get(1).shouldHave(Condition.text("Maths"));
-        $$("tr").find(Condition.text("Hobbies"))
-                .$$("td").get(1).shouldHave(Condition.text("Reading"));
-        $$("tr").find(Condition.text("Picture"))
-                .$$("td").get(1).shouldHave(Condition.text("avatar.png"));
-        $$("tr").find(Condition.text("Address"))
-                .$$("td").get(1).shouldHave(Condition.text("Sezam street, 1"));
-        $$("tr").find(Condition.text("State and City"))
-                .$$("td").get(1).shouldHave(Condition.text("Haryana Panipat"));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Ivan Ivanov"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("ivanov@mail.ru"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("1122334455"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("10 June,1985"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("Maths"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Reading"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("avatar.png"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Sezam street, 1"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("Haryana Panipat"));
     }
 }
