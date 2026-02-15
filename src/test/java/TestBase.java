@@ -8,7 +8,8 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestBase {
     @BeforeAll
     static void setupConfig(){
-        Configuration.browserSize = "1920x1080";
+       // Configuration.browserSize = "1920x1080";
+        Configuration.browserSize = "1280x1024";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         //Configuration.holdBrowserOpen = true;

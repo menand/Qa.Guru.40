@@ -29,7 +29,7 @@ public class Lesson4Test extends TestBase{
         $(byText(state)).click();
         $("#city").click();
         $(byText(city)).click();
-        $("#submit").click();
+        $("#submit").scrollTo().click();
         //Checkings
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
@@ -52,7 +52,7 @@ public class Lesson4Test extends TestBase{
         $("#lastName").setValue(lastName);
         $("#userNumber").setValue(userNumber);
         $("#genterWrapper").$(byText(gender)).click();
-        $("#submit").click();
+        $("#submit").scrollTo().click();
         //Checkings
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
@@ -64,7 +64,7 @@ public class Lesson4Test extends TestBase{
 	void negativeEmptyFieldsTest(){
         openTestForm();
 
-        $("#submit").click();
+        $("#submit").scrollTo().click();
         $("#firstName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
         $("#genterWrapper").$(byText(gender)).shouldHave(cssValue("color", "rgba(220, 53, 69, 1)"));
         $("#userNumber").shouldBe(match("background-image contains error icon",
@@ -76,7 +76,7 @@ public class Lesson4Test extends TestBase{
         openTestForm();
 
         $("#userEmail").setValue("ivanov@mail");
-        $("#submit").click();
+        $("#submit").scrollTo().click();
         $("#userEmail").shouldBe(match("background-image contains error icon",
                 el -> el.getCssValue("background-image").contains("stroke='%23dc3545'")));
     }
