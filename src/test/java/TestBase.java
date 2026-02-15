@@ -2,7 +2,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import com.codeborne.selenide.Configuration;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TestBase {
     @BeforeAll
@@ -18,6 +19,13 @@ public class TestBase {
 	void closeBrowser() {
         closeWebDriver();
     }
+
+    void openTestForm(){
+        open("");
+        $(byText("Forms")).click();
+        $(byText("Practice Form")).click();
+    }
+
 
 
 }

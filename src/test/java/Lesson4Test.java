@@ -3,13 +3,12 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 import static testData.TestData.*;
 
 public class Lesson4Test extends TestBase{
     @Test
     void positiveFullDataTest() {
-        open("/automation-practice-form");
+        openTestForm();
         //Filling
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -26,7 +25,7 @@ public class Lesson4Test extends TestBase{
         $("#hobbies-checkbox-2").parent().click();
         $("#uploadPicture").uploadFromClasspath(picturePath);
         $("#currentAddress").setValue(currentAddress);
-        $("#state").click();
+        $("#state").scrollTo().click();
         $(byText(state)).click();
         $("#city").click();
         $(byText(city)).click();
@@ -47,7 +46,7 @@ public class Lesson4Test extends TestBase{
 
     @Test
     void positiveMinimumDataTest() {
-        open("/automation-practice-form");
+        openTestForm();
         //Filling
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -62,8 +61,8 @@ public class Lesson4Test extends TestBase{
     }
 
     @Test
-	void negativeEmptyFields(){
-        open("/automation-practice-form");
+	void negativeEmptyFieldsTest(){
+        openTestForm();
 
         $("#submit").click();
         $("#firstName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
@@ -73,8 +72,8 @@ public class Lesson4Test extends TestBase{
     }
 
     @Test
-    void negativeWrongEmailFormat(){
-        open("/automation-practice-form");
+    void negativeWrongEmailFormatTest(){
+        openTestForm();
 
         $("#userEmail").setValue("ivanov@mail");
         $("#submit").click();
