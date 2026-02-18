@@ -1,5 +1,9 @@
 package testData;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class TestData {
     public static String firstName = "Ivan";
     public static String lastName = "Ivanov";
@@ -9,6 +13,10 @@ public class TestData {
     public static String yearOfBirth = "1985";
     public static String monthOfBirth = "June";
     public static String dayOfBirth = "10";
+    public static LocalDate birthDate = LocalDate.parse(
+            dayOfBirth + " " + monthOfBirth + " " + yearOfBirth,
+            DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
+    );
     public static String subjects = "Maths";
     public static String hobbies = "Reading";
     public static String picturePath = "files/avatar.png";

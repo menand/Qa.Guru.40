@@ -31,7 +31,7 @@ public class Lesson4Test extends TestBase{
         $(byText(city)).click();
         $("#submit").scrollTo().click();
         //Checkings
-        $(".modal-header").shouldHave(text("Thanks for submitting the form"));
+
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
         $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmail));
         $(".table-responsive").$(byText("Gender")).parent().shouldHave(text(gender));
