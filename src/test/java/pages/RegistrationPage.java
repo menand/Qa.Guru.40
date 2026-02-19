@@ -15,12 +15,12 @@ public class RegistrationPage {
     CalendarComponent calendar = new CalendarComponent();
     ResultsTableComponent resultsTable = new ResultsTableComponent();
 
-    private SelenideElement
+    private final SelenideElement
             firstNameInput =  $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
             userNumberInput = $("#userNumber"),
-            genterWrapper = $("#genterWrapper"),
+            genderWrapper = $("#genterWrapper"), //bug in name on Site
             subjectInput = $("#subjectsInput"),
             hobbiesWrapper = $("#hobbiesWrapper"),
             uploadPictureInput = $("#uploadPicture"),
@@ -47,7 +47,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setGender(String gender){
-        genterWrapper.$(byText(gender)).click();
+        genderWrapper.$(byText(gender)).click();
         return this;
     }
 
@@ -126,7 +126,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage checkRedColorForEmptyGender() {
-        genterWrapper.$(".form-check-label").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        genderWrapper.$(".form-check-label").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
         return this;
     }
 
