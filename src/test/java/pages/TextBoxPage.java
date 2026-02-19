@@ -10,13 +10,11 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class TextBoxPage {
-    // Elements
-    private final SelenideElement userNameInput = $("#userName");
-    private final SelenideElement userEmailInput = $("#userEmail");
-    private final SelenideElement submitButton = $("#submit");
-    private final SelenideElement outputResults = $("#output");
+    private final SelenideElement userNameInput = $("#userName"),
+            userEmailInput = $("#userEmail"),
+            submitButton = $("#submit"),
+            outputResults = $("#output");
 
-    // Actions
     public TextBoxPage openPage() {
         open("");
         $(byText("Elements")).click();
