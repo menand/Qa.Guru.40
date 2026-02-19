@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationPage {
-    CalendarComponent calendar = new CalendarComponent();
-    ResultsTableComponent resultsTable = new ResultsTableComponent();
+    private final CalendarComponent calendar = new CalendarComponent();
+    private final ResultsTableComponent resultsTable = new ResultsTableComponent();
 
     private final SelenideElement
             firstNameInput =  $("#firstName"),

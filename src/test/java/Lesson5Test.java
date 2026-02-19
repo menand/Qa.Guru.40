@@ -4,7 +4,7 @@ import pages.RegistrationPage;
 import static testData.TestData.*;
 
 public class Lesson5Test extends TestBase{
-    RegistrationPage registrationPage = new RegistrationPage();
+    private final RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void positiveFullDataTest() {

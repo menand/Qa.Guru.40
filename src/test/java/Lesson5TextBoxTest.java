@@ -4,7 +4,7 @@ import static testData.TestData.*;
 
 public class Lesson5TextBoxTest extends TestBase
 {
-    TextBoxPage textBoxPage = new TextBoxPage();
+    private final TextBoxPage textBoxPage = new TextBoxPage();
 
     @Test
     void positiveFillAllFieldsTest() {
