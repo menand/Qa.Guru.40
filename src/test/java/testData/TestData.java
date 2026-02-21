@@ -49,13 +49,8 @@ public class TestData {
         }
         currentAddress = faker.address().fullAddress();
         //штат и город связаны
-        state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
-        switch (state) {
-            case "NCR" -> city = faker.options().option("Delhi", "Gurgaon", "Noida");
-            case "Uttar Pradesh" -> city = faker.options().option("Agra", "Lucknow", "Merrut");
-            case "Haryana" -> city = faker.options().option("Karnal", "Panipat");
-            case "Rajasthan" -> city = faker.options().option("Jaipur", "Jaiselmer");
-            default -> throw new IllegalStateException("Unexpected state: " + state);
-        }
+        StateAndCity stateAndCity = faker.options().nextElement(StateAndCity.values());
+        state = stateAndCity.getState();
+        city = stateAndCity.getRandomCity(faker);
     }
 }
