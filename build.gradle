@@ -24,7 +24,7 @@ dependencyUpdates {
     outputFormatter = 'json'
 }
 
-def junitVersion = '6.0.2'
+def junitVersion = '6.0.3'
 
 dependencies {
     testImplementation(
@@ -32,8 +32,12 @@ dependencies {
             "org.junit.jupiter:junit-jupiter-params:${junitVersion}",
             "org.junit.platform:junit-platform-launcher:${junitVersion}",
             "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
-            'org.slf4j:slf4j-simple:2.0.17')
-    implementation('com.codeborne:selenide:7.14.0')
+            'org.slf4j:slf4j-simple:2.0.17'
+    )
+    implementation(
+            'com.codeborne:selenide:7.14.0',
+            'net.datafaker:datafaker:2.5.4'
+    )
 }
 
 

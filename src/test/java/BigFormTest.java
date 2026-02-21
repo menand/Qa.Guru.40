@@ -3,7 +3,7 @@ import pages.RegistrationPage;
 
 import static testData.TestData.*;
 
-public class Lesson5Test extends TestBase{
+public class BigFormTest extends TestBase{
     private final RegistrationPage registrationPage = new RegistrationPage();
 
     @Test

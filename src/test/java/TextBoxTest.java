@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 import pages.TextBoxPage;
 import static testData.TestData.*;
 
-public class Lesson5TextBoxTest extends TestBase
+public class TextBoxTest extends TestBase
 {
     private final TextBoxPage textBoxPage = new TextBoxPage();
 

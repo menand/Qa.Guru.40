@@ -1,26 +1,62 @@
 package testData;
 
+import net.datafaker.Faker;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class TestData {
-    public static String firstName = "Ivan";
-    public static String lastName = "Ivanov";
-    public static String userEmail = "ivanov@mail.ru";
-    public static String gender = "Male";
-    public static String userNumber = "1122334455";
-    public static String yearOfBirth = "1985";
-    public static String monthOfBirth = "June";
-    public static String dayOfBirth = "10";
-    public static LocalDate birthDate = LocalDate.parse(
-            dayOfBirth + " " + monthOfBirth + " " + yearOfBirth,
-            DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
-    );
-    public static String subjects = "Maths";
-    public static String hobbies = "Reading";
-    public static String picturePath = "files/avatar.png";
-    public static String currentAddress = "Sezam street, 1";
-    public static String state = "Haryana";
-    public static String city = "Panipat";
+    public static String
+            firstName,
+            lastName,
+            userEmail,
+            gender,
+            userNumber,
+            yearOfBirth,
+            monthOfBirth,
+            dayOfBirth,
+            subjects,
+            hobbies,
+            picturePath,
+            currentAddress,
+            state,
+            city;
+    public static LocalDate birthDate;
+
+    public static void prepareTestDate() {
+        Faker faker = new Faker();
+        firstName = faker.name().firstName();
+        lastName = faker.name().lastName();
+        userEmail = faker.internet().emailAddress();
+        gender = faker.options().option("Male", "Female", "Other");
+        userNumber = faker.number().digits(10); // 10-значный номер
+        // Генерация даты рождения (человек от 18 до 65 лет)
+        birthDate = faker.timeAndDate().birthday(18, 65);
+        yearOfBirth = String.valueOf(birthDate.getYear());
+        monthOfBirth = birthDate.format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH));
+        dayOfBirth = birthDate.format(DateTimeFormatter.ofPattern("dd"));
+        // Образование и хобби
+        subjects = faker.options().option("Maths", "Physics", "Chemistry", "Social Studies", "English");
+        hobbies = faker.options().option("Sports", "Reading", "Music");
+        //Картинка из папки Ресурсы-файлы
+        File folder = new File("src/test/resources/files");
+        File[] files = folder.listFiles();
+        if (files != null && files.length > 0) {
+            File randomFile = faker.options().nextElement(files);
+            picturePath = "files/" + randomFile.getName();
+        }
+        currentAddress = faker.address().fullAddress();
+        //штат и город связаны
+        String[][] stateCityPairs = {
+                {"NCR", "Delhi"}, {"NCR", "Gurgaon"}, {"NCR", "Noida"},
+                {"Uttar Pradesh", "Agra"}, {"Uttar Pradesh", "Lucknow"}, {"Uttar Pradesh", "Merrut"},
+                {"Haryana", "Panipat"}, {"Haryana", "Karnal"},
+                {"Rajasthan", "Jaipur"}, {"Rajasthan", "Jaiselmer"}
+        };
+        String[] randomPair = faker.options().nextElement(stateCityPairs);
+        state = randomPair[0];
+        city = randomPair[1];
+    }
 }
