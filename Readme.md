@@ -35,7 +35,9 @@ src/test/java/
 │   ├── BigFormTest.java       → Основной тест с полным набором проверок для большой формы
 │   ├── TextBoxTest.java       → Основной тест с полным набором проверок для простой формы
 │   └── TestBase.java          → Базовый класс с настройкой окружения
-├── testData/TestData.java     → Генерация и хранение тестовых данных
+├── testData/
+│   ├── TestData.java           → Генерация и хранение тестовых данных
+│   └── StateAndCity.java       → Вспомогательный Enum для связки штат-город
 └── pages/
     ├── RegistrationPage.java        → PageObject для основной формы
     ├── TextBoxPage.java             → PageObject для текстовой формы
