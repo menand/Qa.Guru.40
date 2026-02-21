@@ -1,0 +1,27 @@
+# Автоопределение текстовых файлов и нормализация окончаний строк
+* text=auto eol=lf
+
+# Явно текстовые файлы с улучшенным diff для Java
+*.java     text diff=java
+*.xml      text diff=xml
+*.properties text
+*.gradle   text
+*.yml      text
+*.yaml     text
+*.json     text
+*.md       text diff=markdown
+
+# Бинарные артефакты тестов — не показывать diff, не нормализовать
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.bmp      binary
+*.mp4      binary
+*.webm     binary
+*.zip      binary
+*.tar      binary
+*.gz       binary
+
+# Настройки Git — сам .gitattributes не должен нормализовываться
+.gitattributes   text
