@@ -1,8 +1,10 @@
+package com.demoqa.tests;
+
 import org.junit.jupiter.api.Test;
 import pages.TextBoxPage;
 import static testData.TestData.*;
 
-public class TextBoxTest extends TestBase
+class TextBoxTest extends TestBase
 {
     private final TextBoxPage textBoxPage = new TextBoxPage();
 

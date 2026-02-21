@@ -1,3 +1,5 @@
+package com.demoqa.tests;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import com.codeborne.selenide.Configuration;
@@ -6,7 +8,7 @@ import testData.TestData;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestBase {
+class TestBase {
 
 
     @BeforeAll

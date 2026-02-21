@@ -49,14 +49,13 @@ public class TestData {
         }
         currentAddress = faker.address().fullAddress();
         //штат и город связаны
-        String[][] stateCityPairs = {
-                {"NCR", "Delhi"}, {"NCR", "Gurgaon"}, {"NCR", "Noida"},
-                {"Uttar Pradesh", "Agra"}, {"Uttar Pradesh", "Lucknow"}, {"Uttar Pradesh", "Merrut"},
-                {"Haryana", "Panipat"}, {"Haryana", "Karnal"},
-                {"Rajasthan", "Jaipur"}, {"Rajasthan", "Jaiselmer"}
-        };
-        String[] randomPair = faker.options().nextElement(stateCityPairs);
-        state = randomPair[0];
-        city = randomPair[1];
+        state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+        switch (state) {
+            case "NCR" -> city = faker.options().option("Delhi", "Gurgaon", "Noida");
+            case "Uttar Pradesh" -> city = faker.options().option("Agra", "Lucknow", "Merrut");
+            case "Haryana" -> city = faker.options().option("Karnal", "Panipat");
+            case "Rajasthan" -> city = faker.options().option("Jaipur", "Jaiselmer");
+            default -> throw new IllegalStateException("Unexpected state: " + state);
+        }
     }
 }
