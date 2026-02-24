@@ -1,6 +1,4 @@
-package pages;
-
-import com.codeborne.selenide.SelenideElement;
+package com.demoqa.pages;
 
 import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.text;
@@ -9,7 +7,9 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class TextBoxPage {
+import com.codeborne.selenide.SelenideElement;
+
+public class TextBoxPage extends DemoqaComParentPage {
     private final SelenideElement userNameInput = $("#userName"),
             userEmailInput = $("#userEmail"),
             submitButton = $("#submit"),
@@ -17,6 +17,7 @@ public class TextBoxPage {
 
     public TextBoxPage openPage() {
         open("");
+        removeBanners();
         $(byText("Elements")).click();
         $(byText("Text Box")).click();
         return this;

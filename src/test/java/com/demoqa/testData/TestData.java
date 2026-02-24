@@ -1,15 +1,13 @@
-package testData;
-
-import net.datafaker.Faker;
+package com.demoqa.testData;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import net.datafaker.Faker;
 
 public class TestData {
-    public static String
-            firstName,
+    public static String firstName,
             lastName,
             userEmail,
             gender,
@@ -38,9 +36,11 @@ public class TestData {
         monthOfBirth = birthDate.format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH));
         dayOfBirth = birthDate.format(DateTimeFormatter.ofPattern("dd"));
         // Образование и хобби
-        subjects = faker.options().option("Maths", "Physics", "Chemistry", "Social Studies", "English");
+        subjects =
+                faker.options()
+                        .option("Maths", "Physics", "Chemistry", "Social Studies", "English");
         hobbies = faker.options().option("Sports", "Reading", "Music");
-        //Картинка из папки Ресурсы-файлы
+        // Картинка из папки Ресурсы-файлы
         File folder = new File("src/test/resources/files");
         File[] files = folder.listFiles();
         if (files != null && files.length > 0) {
@@ -48,7 +48,7 @@ public class TestData {
             picturePath = "files/" + randomFile.getName();
         }
         currentAddress = faker.address().fullAddress();
-        //штат и город связаны
+        // штат и город связаны
         StateAndCity stateAndCity = faker.options().nextElement(StateAndCity.values());
         state = stateAndCity.getState();
         city = stateAndCity.getRandomCity(faker);

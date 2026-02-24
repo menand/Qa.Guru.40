@@ -1,10 +1,10 @@
-package pages.components;
-
-import com.codeborne.selenide.SelenideElement;
+package com.demoqa.pages.components;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+
+import com.codeborne.selenide.SelenideElement;
 
 public class ResultsTableComponent {
     private final SelenideElement tableResponsive = $(".table-responsive"),
@@ -14,7 +14,7 @@ public class ResultsTableComponent {
         tableResponsive.$(byText(key)).parent().shouldHave(text(value));
     }
 
-    public void isVisible(){
+    public void isVisible() {
         modalHeader.shouldHave(text("Thanks for submitting the form"));
     }
 }

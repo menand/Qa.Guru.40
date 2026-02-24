@@ -1,16 +1,17 @@
 package com.demoqa.tests;
 
-import org.junit.jupiter.api.Test;
-import pages.TextBoxPage;
-import static testData.TestData.*;
+import static com.demoqa.testData.TestData.*;
 
-class TextBoxTest extends TestBase
-{
+import com.demoqa.pages.TextBoxPage;
+import org.junit.jupiter.api.Test;
+
+class TextBoxTest extends TestBase {
     private final TextBoxPage textBoxPage = new TextBoxPage();
 
     @Test
     void positiveFillAllFieldsTest() {
-        textBoxPage.openPage()
+        textBoxPage
+                .openPage()
                 .typeUserName(firstName)
                 .typeUserEmail(userEmail)
                 .submitForm()
@@ -20,7 +21,8 @@ class TextBoxTest extends TestBase
 
     @Test
     void negativeWrongEmail() {
-        textBoxPage.openPage()
+        textBoxPage
+                .openPage()
                 .typeUserName(firstName)
                 .typeUserEmail("wrong@mail")
                 .submitForm()

@@ -1,4 +1,4 @@
-package testData;
+package com.demoqa.testData;
 
 import net.datafaker.Faker;
 
@@ -24,4 +24,3 @@ public enum StateAndCity {
         return faker.options().nextElement(cities);
     }
 }
-

@@ -21,6 +21,6 @@ public class JavaLesson {
         System.out.println(i1 <= dmax);
         System.out.println(--imin);
         System.out.println(++imax);
-        System.out.println(dmax*dmax);
+        System.out.println(dmax * dmax);
     }
 }

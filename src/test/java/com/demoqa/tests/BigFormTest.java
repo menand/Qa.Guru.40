@@ -1,9 +1,9 @@
 package com.demoqa.tests;
 
-import static testData.TestData.*;
+import static com.demoqa.testData.TestData.*;
 
+import com.demoqa.pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
-import pages.RegistrationPage;
 
 class BigFormTest extends TestBase {
     private final RegistrationPage registrationPage = new RegistrationPage();

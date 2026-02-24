@@ -1,15 +1,14 @@
 package com.demoqa.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeEach;
-import testData.TestData;
-
 import static com.codeborne.selenide.Selenide.*;
 
-class TestBase {
+import com.codeborne.selenide.Configuration;
+import com.demoqa.testData.TestData;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
+class TestBase {
 
     @BeforeAll
     static void setupConfig() {
@@ -27,6 +26,4 @@ class TestBase {
     void prepareTestDate() {
         TestData.prepareTestDate();
     }
-
-
 }
