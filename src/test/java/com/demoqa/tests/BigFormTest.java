@@ -1,9 +1,9 @@
 package com.demoqa.tests;
 
+import static testData.TestData.*;
+
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
-
-import static testData.TestData.*;
 
 class BigFormTest extends TestBase {
     private final RegistrationPage registrationPage = new RegistrationPage();
@@ -22,19 +22,19 @@ class BigFormTest extends TestBase {
                 .setHobbies(hobbies)
                 .uploadPicture(picturePath)
                 .setCurrentAddress(currentAddress)
-                .setStateAndCity(state,city)
+                .setStateAndCity(state, city)
                 .submitForm()
                 .resultTableIsVisible()
-                .checkResult("Student Name",firstName + " " + lastName)
-                .checkResult("Student Email",userEmail)
-                .checkResult("Gender",gender)
-                .checkResult("Mobile",userNumber)
-                .checkResult("Date of Birth",dayOfBirth + " " + monthOfBirth + "," + yearOfBirth)
-                .checkResult("Subjects",subjects)
-                .checkResult("Hobbies",hobbies)
-                .checkResult("Picture",picturePath.substring(picturePath.lastIndexOf('/') + 1))
-                .checkResult("Address",currentAddress)
-                .checkResult("State and City",state + " " + city);
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Student Email", userEmail)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", userNumber)
+                .checkResult("Date of Birth", dayOfBirth + " " + monthOfBirth + "," + yearOfBirth)
+                .checkResult("Subjects", subjects)
+                .checkResult("Hobbies", hobbies)
+                .checkResult("Picture", picturePath.substring(picturePath.lastIndexOf('/') + 1))
+                .checkResult("Address", currentAddress)
+                .checkResult("State and City", state + " " + city);
     }
 
     @Test
@@ -47,13 +47,13 @@ class BigFormTest extends TestBase {
                 .setUserNumber(userNumber)
                 .submitForm()
                 .resultTableIsVisible()
-                .checkResult("Student Name",firstName + " " + lastName)
-                .checkResult("Gender",gender)
-                .checkResult("Mobile",userNumber);
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", userNumber);
     }
 
     @Test
-	void negativeEmptyFieldsTest(){
+    void negativeEmptyFieldsTest() {
         registrationPage
                 .openForm()
                 .submitForm()
@@ -63,12 +63,11 @@ class BigFormTest extends TestBase {
     }
 
     @Test
-    void negativeWrongEmailFormatTest(){
+    void negativeWrongEmailFormatTest() {
         registrationPage
                 .openForm()
                 .setUserEmail("ivanov@mail")
                 .submitForm()
                 .checkIconForWrongEmail();
-
     }
 }

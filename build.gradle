@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'com.github.ben-manes.versions' version '0.53.0'
+    id("com.diffplug.spotless") version "8.2.1"
 }
 
 java {
@@ -52,5 +53,25 @@ tasks.withType(Test).configureEach {
 tasks.named('dependencyUpdates') {
     doFirst {
         gradle.startParameter.setParallelProjectExecutionEnabled(false)
+    }
+}
+
+spotless {
+    // optional: limit format enforcement to just the files changed by this feature branch
+    ratchetFrom 'origin/main'
+
+    format 'misc', {
+        // define the files to apply `misc` to
+        target '*.gradle', '.gitattributes', '.gitignore'
+
+        // define the steps to apply to those files
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
+    }
+    java {
+        encoding 'UTF-8'
+        googleJavaFormat('1.34.1').aosp().reflowLongStrings().skipJavadocFormatting()
+        formatAnnotations()
     }
 }
