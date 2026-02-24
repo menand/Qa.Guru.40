@@ -8,8 +8,7 @@ import java.time.LocalDate;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     private final CalendarComponent calendar = new CalendarComponent();
@@ -22,10 +21,12 @@ public class RegistrationPage {
             userNumberInput = $("#userNumber"),
             genderWrapper = $("#genterWrapper"), //bug in name on Site
             subjectInput = $("#subjectsInput"),
+            subjectAutoComplete = $(".subjects-auto-complete__menu-list"),
             hobbiesWrapper = $("#hobbiesWrapper"),
             uploadPictureInput = $("#uploadPicture"),
             currentAddressInput = $("#currentAddress"),
             stateDropdown = $("#state"),
+            stateCityWrapper = $("#stateCity-wrapper"),
             cityDropdown = $("#city"),
             submitButton = $("#submit");
 
@@ -69,7 +70,8 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setSubject(String subject){
-        subjectInput.setValue(subject.substring(0, 2)).pressEnter();
+        subjectInput.setValue(subject.substring(0, 2));
+        subjectAutoComplete.$(byText(subject)).click();
         return this;
     }
 
@@ -90,13 +92,13 @@ public class RegistrationPage {
 
     private RegistrationPage setState(String state) {
         stateDropdown.scrollTo().click();
-        $("#stateCity-wrapper").$(byText(state)).click();
+        stateCityWrapper.$(byText(state)).click();
         return this;
     }
 
     private RegistrationPage setCity(String city) {
         cityDropdown.click();
-        $("#stateCity-wrapper").$(byText(city)).click();
+        stateCityWrapper.$(byText(city)).click();
         return this;
     }
 
