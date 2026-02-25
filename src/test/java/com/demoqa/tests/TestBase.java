@@ -15,6 +15,7 @@ class TestBase {
         Configuration.browserSize = "1280x1024";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
+        Configuration.browserVersion = "144"; //last for Selenide 7.14
     }
 
     @AfterEach
