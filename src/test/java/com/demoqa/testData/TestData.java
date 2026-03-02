@@ -3,6 +3,7 @@ package com.demoqa.testData;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import net.datafaker.Faker;
 
@@ -15,13 +16,13 @@ public class TestData {
             yearOfBirth,
             monthOfBirth,
             dayOfBirth,
-            subjects,
             hobbies,
             picturePath,
             currentAddress,
             state,
             city;
     public static LocalDate birthDate;
+    public static List<Subject> subjects;
 
     public static void prepareTestDate() {
         Faker faker = new Faker();
@@ -35,10 +36,8 @@ public class TestData {
         yearOfBirth = String.valueOf(birthDate.getYear());
         monthOfBirth = birthDate.format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH));
         dayOfBirth = birthDate.format(DateTimeFormatter.ofPattern("dd"));
-        // Образование и хобби
-        subjects =
-                faker.options()
-                        .option("Maths", "Physics", "Chemistry", "Social Studies", "English");
+        // Предметы и хобби
+        subjects = Subject.getRandomSubjects();
         hobbies = faker.options().option("Sports", "Reading", "Music");
         // Картинка из папки Ресурсы-файлы
         File folder = new File("src/test/resources/files");

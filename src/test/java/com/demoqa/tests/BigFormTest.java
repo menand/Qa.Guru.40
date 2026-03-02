@@ -18,7 +18,7 @@ class BigFormTest extends TestBase {
                 .setGender(gender)
                 .setUserNumber(userNumber)
                 .setDateOfBirth(birthDate)
-                .setSubject(subjects)
+                .setSubjects(subjects)
                 .setHobbies(hobbies)
                 .uploadPicture(picturePath)
                 .setCurrentAddress(currentAddress)

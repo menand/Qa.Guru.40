@@ -7,7 +7,11 @@ import static com.codeborne.selenide.Selenide.*;
 import com.codeborne.selenide.SelenideElement;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ResultsTableComponent;
+import com.demoqa.testData.Subject;
+
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RegistrationPage extends DemoqaComParentPage {
     private final CalendarComponent calendar = new CalendarComponent();
@@ -68,9 +72,12 @@ public class RegistrationPage extends DemoqaComParentPage {
         return this;
     }
 
-    public RegistrationPage setSubject(String subject) {
-        subjectInput.setValue(subject.substring(0, 2));
-        subjectAutoComplete.$(byText(subject)).click();
+    public RegistrationPage setSubjects(List<Subject> subjects) {
+        subjects.forEach(subject -> {
+            String displayName = subject.getDisplayName();
+            subjectInput.setValue(displayName.substring(0, 2));
+            subjectAutoComplete.$(byText(displayName)).click();
+        });
         return this;
     }
 
@@ -117,6 +124,14 @@ public class RegistrationPage extends DemoqaComParentPage {
     }
 
     public RegistrationPage checkResult(String key, String value) {
+        resultsTable.checkResult(key, value);
+        return this;
+    }
+
+    public RegistrationPage checkResult(String key, List<Subject> subjects) {
+        String value = subjects.stream()
+                .map(Subject::getDisplayName)
+                .collect(Collectors.joining(", "));
         resultsTable.checkResult(key, value);
         return this;
     }
