@@ -3,13 +3,23 @@ package com.demoqa.tests;
 import static com.demoqa.testData.TestData.*;
 
 import com.demoqa.pages.RegistrationPage;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("Проверка большой формы регистрации")
 class BigFormTest extends TestBase {
     private final RegistrationPage registrationPage = new RegistrationPage();
 
-    @Test
-    void positiveFullDataTest() {
+    @Tag("REGRESS")
+    @ParameterizedTest(name = "Проверка регистрации с полом: {0}")
+    @ValueSource(strings = {"Male", "Female", "Other"})
+    @DisplayName("Проверка максимального набора данных")
+    void positiveFullDataAllGenderTest(String gender) {
         registrationPage
                 .openForm()
                 .setFirstName(firstName)
@@ -37,8 +47,33 @@ class BigFormTest extends TestBase {
                 .checkResult("State and City", state + " " + city);
     }
 
-    @Test
-    void positiveMinimumDataTest() {
+    @Tag("SMOKE")
+    @ParameterizedTest(name = "Проверка регистрации с разными языками: {arguments}")
+    @CsvSource(value = {
+            "John, Doe",              // Английский
+            "José, García",           // Испанский
+            "王, 小明",                // Китайский
+            "山田, 太郎",              // Японский
+            "Matti, Meikäläinen"      // Финский
+    })
+    void positiveMinimumDataAllLanguageTest(String firstName, String lastName) {
+        registrationPage
+                .openForm()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setUserNumber(userNumber)
+                .submitForm()
+                .resultTableIsVisible()
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", userNumber);
+    }
+
+    @Tag("SMOKE")
+    @ParameterizedTest(name = "Проверка регистрации с разными данными: {arguments}")
+    @CsvFileSource(resources = "/namesForTests.csv", numLinesToSkip = 1)
+    void positiveMinimumDataDifferentNamesLengthTest(String firstName, String lastName) {
         registrationPage
                 .openForm()
                 .setFirstName(firstName)
@@ -53,6 +88,7 @@ class BigFormTest extends TestBase {
     }
 
     @Test
+    @DisplayName("Негативная проверка - не заполненные поля")
     void negativeEmptyFieldsTest() {
         registrationPage
                 .openForm()
@@ -63,6 +99,7 @@ class BigFormTest extends TestBase {
     }
 
     @Test
+    @DisplayName("Негативная проверка - не верный формат Email")
     void negativeWrongEmailFormatTest() {
         registrationPage
                 .openForm()
