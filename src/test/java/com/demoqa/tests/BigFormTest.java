@@ -72,7 +72,7 @@ class BigFormTest extends TestBase {
 
     @Tag("SMOKE")
     @ParameterizedTest(name = "Проверка регистрации с разными данными: {arguments}")
-    @CsvFileSource(resources = "/namesForTests.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/files/csv/namesForTests.csv", numLinesToSkip = 1)
     void positiveMinimumDataDifferentNamesLengthTest(String firstName, String lastName) {
         registrationPage
                 .openForm()

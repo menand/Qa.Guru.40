@@ -1,0 +1,34 @@
+{
+  "title": "menand's shop",
+  "is_real": false,
+  "address": {
+    "City": "Moscow",
+    "Street": "Main street",
+    "HouseNumber": 5
+  },
+  "staff": [
+    {
+      "id" : 1,
+      "managerId": null,
+      "role": "Director",
+      "name": "Andrey",
+      "salary": 150000
+
+    },
+    {
+      "id" : 2,
+      "managerId": 1,
+      "role": "Seller",
+      "name": "Katya",
+      "salary": 90000
+    },
+    {
+      "id" : 3,
+      "managerId": 1,
+      "role": "Seller",
+      "name": "Masha",
+      "salary": 80000
+    }
+  ]
+
+}
