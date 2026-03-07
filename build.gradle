@@ -20,10 +20,10 @@ ext {
 }
 
 dependencyUpdates {
-    rejectVersionIf {
+    rejectVersionIf { selection ->
         def unstable = ['alpha', 'beta', 'rc', 'm', 'snapshot', 'preview', 'eap', 'dev']
         unstable.any { keyword ->
-            candidate.version.toLowerCase().contains(keyword)
+            selection.candidate.version.toLowerCase().contains(keyword)
         }
     }
 
@@ -45,6 +45,7 @@ dependencies {
     testImplementation platform("org.junit:junit-bom:$junitVersion")
 
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
 
     testImplementation 'org.slf4j:slf4j-simple:2.0.17'
     testImplementation 'com.codeborne:selenide:7.14.0'
