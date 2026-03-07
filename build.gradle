@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'com.github.ben-manes.versions' version '0.53.0'
-    id("com.diffplug.spotless") version "8.3.0"
+    id 'com.diffplug.spotless' version '8.3.0'
 }
 
 java {
@@ -14,71 +14,95 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    junitVersion = '6.0.3'
+    lombokVersion = '1.18.42'
+}
+
 dependencyUpdates {
     rejectVersionIf {
-        ['alpha', 'beta', 'rc', 'm', 'snapshot', 'preview', 'eap', 'dev'].any { keyword ->
-            it.candidate.version.toLowerCase().contains(keyword)
+        def unstable = ['alpha', 'beta', 'rc', 'm', 'snapshot', 'preview', 'eap', 'dev']
+        unstable.any { keyword ->
+            candidate.version.toLowerCase().contains(keyword)
         }
     }
-    // Опционально: проверка только стабильных версий
+
     checkForGradleUpdate = true
-    outputFormatter = 'json'
+    outputFormatter = "json"
+    outputDir = "$buildDir/dependencyUpdates"
+    reportfileName = "report"
 }
 
-def junitVersion = '6.0.3'
+tasks.named("dependencyUpdates") {
+    doFirst {
+        gradle.startParameter.parallelProjectExecutionEnabled = false
+    }
+}
 
 dependencies {
-    testImplementation(
-            platform("org.junit:junit-bom:$junitVersion"),
-            'org.junit.jupiter:junit-jupiter',
-            'org.slf4j:slf4j-simple:2.0.17',
-            'com.codeborne:selenide:7.14.0',
-            'net.datafaker:datafaker:2.5.4',
-            'com.codeborne:xls-test:1.7.2',
-            'org.apache.poi:poi-ooxml:5.5.1',
-            'com.codeborne:pdf-test:2.1.0',
-            'com.opencsv:opencsv:5.12.0',
-            'com.fasterxml.jackson.core:jackson-databind:2.21.1'
-    )
+
+
+    testImplementation platform("org.junit:junit-bom:$junitVersion")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testImplementation 'org.slf4j:slf4j-simple:2.0.17'
+    testImplementation 'com.codeborne:selenide:7.14.0'
+    testImplementation 'net.datafaker:datafaker:2.5.4'
+
+    testImplementation 'com.codeborne:xls-test:1.7.2'
+    testImplementation 'com.codeborne:pdf-test:2.1.0'
+
+    testImplementation 'org.apache.poi:poi-ooxml:5.5.1'
+    testImplementation 'com.opencsv:opencsv:5.12.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.21.1'
+
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testCompileOnly 'org.projectlombok:lombok:1.18.42'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.42'
+
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }
 
-
-tasks.withType(Test).configureEach {
-    systemProperties(System.getProperties())
+tasks.test {
     useJUnitPlatform()
+    dependsOn(tasks.spotlessApply)
+
     testLogging {
-        lifecycle {
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat = "short"
-        }
+        events = ["passed", "failed", "skipped"]
+        exceptionFormat = "short"
     }
 }
 
-tasks.named('dependencyUpdates') {
-    doFirst {
-        gradle.startParameter.setParallelProjectExecutionEnabled(false)
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+tasks.check {
+    dependsOn(tasks.spotlessCheck)
 }
 
 spotless {
-    // optional: limit format enforcement to just the files changed by this feature branch
-    ratchetFrom 'origin/main'
 
-    format 'misc', {
-        // define the files to apply `misc` to
-        target '*.gradle', '.gitattributes', '.gitignore'
+    ratchetFrom = 'origin/main'
 
-        // define the steps to apply to those files
+    format('misc') {
+        target('*.gradle', '*.md', '.gitignore', '.gitattributes')
+
         trimTrailingWhitespace()
         leadingTabsToSpaces()
         endWithNewline()
     }
+
     java {
-        encoding 'UTF-8'
-        googleJavaFormat('1.34.1').aosp().reflowLongStrings().skipJavadocFormatting()
+        encoding = 'UTF-8'
+
+        googleJavaFormat('1.34.1')
+                .aosp()
+                .reflowLongStrings()
+                .skipJavadocFormatting()
+
+        removeUnusedImports()
         formatAnnotations()
+        endWithNewline()
     }
 }
