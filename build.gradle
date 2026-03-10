@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'com.github.ben-manes.versions' version '0.53.0'
     id 'com.diffplug.spotless' version '8.3.0'
+    id 'io.qameta.allure' version '3.0.2'
 }
 
 java {
@@ -17,6 +18,21 @@ repositories {
 ext {
     junitVersion = '6.0.3'
     lombokVersion = '1.18.42'
+    allureVersion = '2.29.0'
+}
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit6 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
 }
 
 dependencyUpdates {
@@ -32,6 +48,8 @@ dependencyUpdates {
     outputDir = "$buildDir/dependencyUpdates"
     reportfileName = "report"
 }
+
+
 
 tasks.named("dependencyUpdates") {
     doFirst {
@@ -57,6 +75,7 @@ dependencies {
     testImplementation 'org.apache.poi:poi-ooxml:5.5.1'
     testImplementation 'com.opencsv:opencsv:5.12.0'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.21.1'
+    testImplementation 'io.qameta.allure:allure-selenide:2.33.0'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
@@ -105,5 +124,8 @@ spotless {
         removeUnusedImports()
         formatAnnotations()
         endWithNewline()
+        custom 'Step one line', {
+            it.replaceAll(/step\(\s+\"/, 'step("')
+        }
     }
 }
