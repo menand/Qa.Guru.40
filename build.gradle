@@ -85,6 +85,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
     dependsOn(tasks.spotlessApply)
 
     testLogging {

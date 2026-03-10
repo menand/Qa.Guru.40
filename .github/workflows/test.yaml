@@ -1,6 +1,6 @@
 name: Test
 
-on: workflow_dispatch
+on: [push]
 
 jobs:
   test:
@@ -15,11 +15,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: Xotabu4/selenoid-github-action@v2
+      - uses: vikindor/selenoid-github-action@v1
       # запускаем тесты
       - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
       # скачиваем историю тестов
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
         if: always()
         continue-on-error: true
         with:
@@ -34,7 +34,7 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
       # публикуем отчет
-      - uses: peaceiris/actions-gh-pages@v2
+      - uses: peaceiris/actions-gh-pages@v4
         if: always()
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
