@@ -3,11 +3,7 @@ package com.github.tests;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 class StepsWithAnnotation {
 
@@ -46,10 +42,5 @@ class StepsWithAnnotation {
         $$("a[data-testid='issue-pr-title-link']")
                 .findBy(text("Получить ачивку"))
                 .shouldBe(visible);
-    }
-
-    @Attachment(value = "Screenshot", type = "image/png", fileExtension = "png")
-    byte[] takeScreenshot() {
-        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 }
