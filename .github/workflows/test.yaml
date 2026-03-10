@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - uses: gradle/actions/setup-gradle@v5
       - uses: Xotabu4/selenoid-github-action@v2
       # запускаем тесты
       - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
