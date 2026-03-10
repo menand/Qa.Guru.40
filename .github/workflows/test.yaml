@@ -18,7 +18,7 @@ jobs:
       - uses: vikindor/selenoid-github-action@v1
       # запускаем тесты
       - uses: gradle/actions/setup-gradle@v5
-      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
+      - run: gradle clean test -Dselenide.remote=http://localhost:4444/wd/hub
       # скачиваем историю тестов
       - uses: actions/checkout@v6
         if: always()
