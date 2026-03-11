@@ -14,11 +14,13 @@ class GitHubTestBase {
 
     @BeforeAll
     static void setupConfig() {
-        Configuration.browserSize = "1280x1024";
-        Configuration.baseUrl = "https://github.com";
-        Configuration.pageLoadStrategy = "normal";
-        Configuration.browser = "chrome";
-        Configuration.browserVersion = "144";
+        if (System.getProperty("selenide.remote") == null) {
+            Configuration.browserSize = "1280x1024";
+            Configuration.baseUrl = "https://github.com";
+            Configuration.pageLoadStrategy = "normal";
+            Configuration.browser = "chrome";
+            Configuration.browserVersion = "144";
+        }
     }
 
     @AfterEach
