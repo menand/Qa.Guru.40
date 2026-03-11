@@ -16,7 +16,9 @@ class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = "chrome";
-        Configuration.browserVersion = "144"; //last for Selenide 7.14
+        if (System.getProperty("selenide.remote") == null) {
+            Configuration.browserVersion = "144";
+        }
     }
 
     @AfterEach
