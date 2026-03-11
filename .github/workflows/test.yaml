@@ -20,12 +20,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 'stable'
+      - uses: Xotabu4/selenoid-github-action@v2
       # запускаем тесты
       - uses: gradle/actions/setup-gradle@v5
-      - run: gradle test --tests "com.github.tests.*"
+      - run: gradle test --tests "com.github.tests.*" -Dselenide.remote=http://localhost:4444/wd/hub
       # скачиваем историю тестов
       - uses: actions/checkout@v6
         if: always()
