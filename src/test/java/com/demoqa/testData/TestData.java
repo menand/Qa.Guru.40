@@ -40,11 +40,11 @@ public class TestData {
         subjects = Subject.getRandomSubjects();
         hobbies = faker.options().option("Sports", "Reading", "Music");
         // Картинка из папки Ресурсы-файлы
-        File folder = new File("src/test/resources/files");
+        File folder = new File("src/test/resources/files/images");
         File[] files = folder.listFiles();
         if (files != null && files.length > 0) {
             File randomFile = faker.options().nextElement(files);
-            picturePath = "files/" + randomFile.getName();
+            picturePath = "files/images/" + randomFile.getName();
         }
         currentAddress = faker.address().fullAddress();
         // штат и город связаны
