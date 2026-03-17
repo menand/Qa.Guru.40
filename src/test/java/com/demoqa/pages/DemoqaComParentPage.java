@@ -6,8 +6,9 @@ public class DemoqaComParentPage {
     protected void removeBanners() {
         executeJavaScript(
                 """
-                document.getElementById('fixedban')?.remove();
-                document.querySelector('footer')?.remove();
+                    document.getElementById('fixedban')?.remove();
+                    document.querySelector('footer')?.remove();
+                    document.querySelectorAll('iframe[src*="googlesyndication"]').forEach(el => el.remove());
                 """);
     }
 }
