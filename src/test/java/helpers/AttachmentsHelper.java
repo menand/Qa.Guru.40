@@ -1,16 +1,18 @@
 package helpers;
 
+import static com.codeborne.selenide.Selenide.sessionId;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-
-import static com.codeborne.selenide.Selenide.sessionId;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import java.util.stream.Collectors;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 
 public class AttachmentsHelper {
     @Attachment(value = "{attachName}", type = "image/png", fileExtension = "png")
@@ -18,19 +20,15 @@ public class AttachmentsHelper {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-
     @Attachment(value = "Page source", type = "text/html", fileExtension = "html")
     public static String pageSource() {
         return WebDriverRunner.getWebDriver().getPageSource();
     }
 
     @Attachment(value = "Browser console logs", type = "text/plain")
-    public static void browserConsoleLogs() {
-        String.join(
-                "\n",
-                getWebDriver().manage().logs().get("browser").getAll().stream()
-                        .map(Object::toString)
-                        .toList());
+    public static String browserConsoleLogs() {
+        LogEntries logs = WebDriverRunner.getWebDriver().manage().logs().get("browser");
+        return logs.getAll().stream().map(LogEntry::toString).collect(Collectors.joining("\n"));
     }
 
     @Attachment(value = "URL", type = "text/plain")
