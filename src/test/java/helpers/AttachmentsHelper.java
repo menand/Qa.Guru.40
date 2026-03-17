@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.sessionId;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class AttachmentsHelper {
-    @Attachment(value = "{attachName", type = "image/png", fileExtension = "png")
+    @Attachment(value = "{attachName}", type = "image/png", fileExtension = "png")
     public static byte[] screenshotAs(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
