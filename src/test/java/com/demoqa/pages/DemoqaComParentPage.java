@@ -8,7 +8,8 @@ public class DemoqaComParentPage {
                 """
                     document.getElementById('fixedban')?.remove();
                     document.querySelector('footer')?.remove();
-                    document.querySelectorAll('iframe[src*="googlesyndication"]').forEach(el => el.remove());
-                """);
+                    document.querySelectorAll('iframe, #fixedban, .adsbygoogle')" +
+                                ".forEach(el => el.remove());
+                    """);
     }
 }
