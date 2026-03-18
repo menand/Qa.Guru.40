@@ -17,19 +17,14 @@ public class TextBoxPage extends DemoqaComParentPage {
 
     public TextBoxPage openPage() {
         open("");
-        sleep(2000);
         enableClickHighlight();
-        sleep(2000);
+        sleep(1000);
         removeBanners();
-        sleep(2000);
+        sleep(1000);
         $(byText("Elements")).click();
-        sleep(2000);
         removeBanners();
-        sleep(2000);
         $(byText("Text Box")).click();
-        sleep(2000);
         removeBanners();
-        sleep(2000);
         return this;
     }
 
