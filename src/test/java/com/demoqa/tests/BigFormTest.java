@@ -47,7 +47,7 @@ class BigFormTest extends TestBase {
                 .checkResult("State and City", state + " " + city);
     }
 
-    @Tag("SMOKE")
+
     @ParameterizedTest(name = "Проверка регистрации с разными языками: {arguments}")
     @CsvSource(value = {
             "John, Doe",              // Английский
@@ -86,6 +86,7 @@ class BigFormTest extends TestBase {
                 .checkResult("Mobile", userNumber);
     }
 
+    @Tag("SMOKE")
     @Test
     @DisplayName("Негативная проверка - не заполненные поля")
     void negativeEmptyFieldsTest() {
