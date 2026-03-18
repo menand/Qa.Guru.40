@@ -4,8 +4,7 @@ import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.enableClickHighlight;
 
 import com.codeborne.selenide.SelenideElement;
@@ -18,12 +17,19 @@ public class TextBoxPage extends DemoqaComParentPage {
 
     public TextBoxPage openPage() {
         open("");
+        sleep(2000);
         enableClickHighlight();
+        sleep(2000);
         removeBanners();
+        sleep(2000);
         $(byText("Elements")).click();
+        sleep(2000);
         removeBanners();
+        sleep(2000);
         $(byText("Text Box")).click();
+        sleep(2000);
         removeBanners();
+        sleep(2000);
         return this;
     }
 
