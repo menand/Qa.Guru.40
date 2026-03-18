@@ -1,4 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2851","Тест на голом Селениде","","Wed Mar 11 05:32:48 UTC 2026","broken","Wed Mar 11 05:32:51 UTC 2026","","com.github.tests.PureSelenideTest","com.github.tests.PureSelenideTest","testWithPureSelenide"
-"","2818","Тест в шагами в отдельном классе","","Wed Mar 11 05:32:51 UTC 2026","broken","Wed Mar 11 05:32:54 UTC 2026","","com.github.tests.StepsWithAnnotationTest","com.github.tests.StepsWithAnnotationTest","testAnnotatedStep"
-"","10524","Тест c Лямбда-нотацией","","Wed Mar 11 05:32:37 UTC 2026","broken","Wed Mar 11 05:32:48 UTC 2026","","com.github.tests.LambdaNotationTest","com.github.tests.LambdaNotationTest","testWithPureSelenide"
