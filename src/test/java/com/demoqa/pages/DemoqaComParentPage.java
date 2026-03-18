@@ -1,18 +1,19 @@
 package com.demoqa.pages;
 
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class DemoqaComParentPage {
     protected void removeBanners() {
         executeJavaScript(
                 """
-                setTimeout(() => {
-                    document.getElementById('fixedban')?.remove();
-                    document.querySelector('footer')?.remove();
-                    document.querySelectorAll('iframe, .adsbygoogle')
-                            .forEach(el => el.remove());
-                }, 500);
+                document.querySelectorAll('iframe, .adsbygoogle, #fixedban')
+                        .forEach(el => el.remove());
                 """
         );
+
+        // ждём пока iframe реально исчезнут
+        $$("iframe").shouldHave(size(0));
     }
 }
