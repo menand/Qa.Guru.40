@@ -27,9 +27,7 @@ class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = "chrome";
-        System.setProperty(
-                "selenide.remote",
-                "Dselenide.remote=https://user1:1234@selenoid.autotests.cloud/wd/hub");
+
         if (System.getProperty("selenide.remote") == null) {
             Configuration.browserVersion = "144";
         } else {
