@@ -3,11 +3,13 @@ package com.demoqa.tests;
 import static com.demoqa.testData.TestData.*;
 
 import com.demoqa.pages.TextBoxPage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TextBoxTest extends TestBase {
     private final TextBoxPage textBoxPage = new TextBoxPage();
 
+    @Tag("SMOKE")
     @Test
     void positiveFillAllFieldsTest() {
         textBoxPage
