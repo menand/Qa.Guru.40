@@ -3,6 +3,7 @@ package com.demoqa.pages;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static helpers.AttachmentsHelper.enableClickHighlight;
 
 import com.codeborne.selenide.SelenideElement;
 import com.demoqa.pages.components.CalendarComponent;
@@ -34,6 +35,7 @@ public class RegistrationPage extends DemoqaComParentPage {
 
         public RegistrationPage openForm() {
         open("");
+        enableClickHighlight();
         removeBanners();
         $(byText("Forms")).click();
             removeBanners();

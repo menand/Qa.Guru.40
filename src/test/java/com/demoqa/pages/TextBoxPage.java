@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static helpers.AttachmentsHelper.enableClickHighlight;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -17,6 +18,7 @@ public class TextBoxPage extends DemoqaComParentPage {
 
     public TextBoxPage openPage() {
         open("");
+        enableClickHighlight();
         removeBanners();
         $(byText("Elements")).click();
         removeBanners();

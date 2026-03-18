@@ -1,5 +1,6 @@
 package helpers;
 
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.sessionId;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -59,5 +60,23 @@ public class AttachmentsHelper {
         browserConsoleLogs();
         url();
         addVideo();
+    }
+
+    public static void enableClickHighlight() {
+        executeJavaScript("""
+        document.addEventListener('click', function(e) {
+            const circle = document.createElement('div');
+            circle.style.position = 'fixed';
+            circle.style.left = e.clientX + 'px';
+            circle.style.top = e.clientY + 'px';
+            circle.style.width = '20px';
+            circle.style.height = '20px';
+            circle.style.border = '2px solid red';
+            circle.style.borderRadius = '50%';
+            circle.style.zIndex = 9999;
+            document.body.appendChild(circle);
+            setTimeout(() => circle.remove(), 500);
+        });
+    """);
     }
 }
