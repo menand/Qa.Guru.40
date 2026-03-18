@@ -1,4 +1,4 @@
-# 🧪 Проект автотестов для QA.Guru 40
+# 🧪 Проект автотестов для QA.Guru.40
 
 Домашние задания Андрея Меньшова по курсу QA.Guru 40. Проект представляет собой набор автоматизированных UI-тестов для веб-формы на сайте [DemoQA](https://demoqa.com).
 
@@ -19,12 +19,21 @@
 ## 🛠 Технологии
 
 - **Java 21**
-- **JUnit 6.0.3** — фреймворк для модульного тестирования
+- **JUnit 6.0.3** — фреймворк для модульного тестирования с поддержкой параметризованных тестов и тегов (SMOKE, REGRESS)
 - **Selenide 7.14.0** — обертка над Selenium для удобного UI-тестирования
 - **Gradle** — система сборки и управления зависимостями
 - **DataFaker 2.5.4** — генерация реалистичных тестовых данных
-- **Spotless 8.2.1** — плагин для форматирования кода
+- **Spotless 8.3.0** — плагин для форматирования кода
 - **Gradle Versions Plugin 0.53.0** — плагин для проверки обновлений зависимостей
+- **Allure 2.29.0** — фреймворк для генерации отчетов
+- **Allure Selenide** — интеграция Allure с Selenide
+- **AssertJ** — библиотека для fluent-проверок
+- **SLF4J** — фреймворк логирования
+- **XLS-Test** — библиотека для тестирования XLS файлов
+- **PDF-Test** — библиотека для тестирования PDF файлов
+- **POI-OOXML** — библиотека для работы с Excel файлами
+- **OpenCSV** — библиотека для работы с CSV файлами
+- **Jackson Databind** — библиотека для работы с JSON
 - **Page Object Model** — паттерн проектирования для повышения читаемости и поддержки
 
 ---
@@ -32,24 +41,40 @@
 ## 🗂 Структура проекта
 
 ```
-src/test/java/
-├── com/demoqa/tests/
-│   ├── BigFormTest.java               → Основной тест с полным набором проверок для большой формы
-│   ├── TextBoxTest.java               → Основной тест с полным набором проверок для простой формы
-│   └── TestBase.java                  → Базовый класс с настройкой окружения
-├── com/demoqa/pages/
-│   ├── DemoqaComParentPage.java       → Базовый класс для всех страниц
-│   ├── RegistrationPage.java          → PageObject для основной формы
-│   └── TextBoxPage.java               → PageObject для текстовой формы
-│   └── components/
-│       ├── CalendarComponent.java     → Компонент выбора даты
-│       └── ResultsTableComponent.java → Компонент проверки результатов
-├── com/demoqa/testData/
-│   ├── TestData.java                  → Генерация и хранение тестовых данных
-│   └── StateAndCity.java              → Вспомогательный Enum для связки штат-город
+src/
+├── test/java/
+│   ├── com/demoqa/tests/
+│   │   ├── BigFormTest.java               → Основной тест с полным набором проверок для большой формы Practice Form на DemoQA
+│   │   ├── TextBoxTest.java               → Тест для проверки текстовой формы на DemoQA
+│   │   └── TestBase.java                  → Базовый класс с настройкой окружения и конфигурацией тестов
+│   ├── com/demoqa/pages/
+│   │   ├── DemoqaComParentPage.java       → Базовый класс для всех страниц
+│   │   ├── RegistrationPage.java          → PageObject для основной формы Practice Form
+│   │   └── TextBoxPage.java               → PageObject для текстовой формы
+│   │   └── components/
+│   │       ├── CalendarComponent.java     → Компонент выбора даты
+│   │       └── ResultsTableComponent.java → Компонент проверки результатов в модальном окне
+│   ├── com/demoqa/testData/
+│   │   ├── TestData.java                  → Генерация и хранение тестовых данных через DataFaker
+│   │   ├── Subject.java                   → Enum для предметов с методом генерации случайных предметов
+│   │   └── StateAndCity.java              → Вспомогательный Enum для связки штат-город
+│   ├── com/github/tests/
+│   │   ├── GitHubTestBase.java            → Базовый класс для тестов GitHub
+│   │   ├── LambdaNotationTest.java        → Тест с использованием лямбда-нотации
+│   │   ├── PureSelenideTest.java          → Тест с использованием чистого Selenide
+│   │   ├── StepsWithAnnotation.java       → Класс с шагами, аннотированными @Step
+│   │   └── StepsWithAnnotationTest.java   → Тест, использующий аннотированные шаги
+│   ├── files/tests/
+│   │   ├── JsonFileTest.java              → Тест для работы с JSON файлами
+│   │   └── ZipFileTest.java               → Тест для работы с ZIP архивами
+│   └── helpers/
+│       └── AttachmentsHelper.java         → Вспомогательный класс для прикрепления скриншотов, логов и видео к отчету Allure
+└── main/java/
+    └── com/github/menand/
+        └── JavaLesson.java                → Учебный класс, демонстрирующий дополнительные возможности языка Java
 ```
 
-Также в проекте присутствует учебный класс в `src/main/java/com/github/menand/JavaLesson.java`, демонстрирующий дополнительные возможности языка.
+Проект использует современные практики автотестирования: Page Object Model, генерацию тестовых данных, параметризованные тесты и интеграцию с Allure для создания подробных отчетов.
 
 ---
 
