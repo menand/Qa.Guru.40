@@ -84,7 +84,11 @@ dependencies {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (System.getProperty("includeTags")) {
+            includeTags System.getProperty("includeTags")
+        }
+    }
     systemProperties(System.getProperties())
     dependsOn(tasks.spotlessApply)
 
