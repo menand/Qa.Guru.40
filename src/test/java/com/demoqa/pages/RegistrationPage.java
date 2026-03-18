@@ -36,7 +36,9 @@ public class RegistrationPage extends DemoqaComParentPage {
         open("");
         removeBanners();
         $(byText("Forms")).click();
+            removeBanners();
         $(byText("Practice Form")).click();
+            removeBanners();
         return this;
     }
 

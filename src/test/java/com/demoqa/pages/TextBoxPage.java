@@ -19,7 +19,9 @@ public class TextBoxPage extends DemoqaComParentPage {
         open("");
         removeBanners();
         $(byText("Elements")).click();
+        removeBanners();
         $(byText("Text Box")).click();
+        removeBanners();
         return this;
     }
 
