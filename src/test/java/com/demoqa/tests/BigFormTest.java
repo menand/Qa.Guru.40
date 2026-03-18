@@ -70,7 +70,6 @@ class BigFormTest extends TestBase {
                 .checkResult("Mobile", userNumber);
     }
 
-    @Tag("SMOKE")
     @ParameterizedTest(name = "Проверка регистрации с разными данными: {arguments}")
     @CsvFileSource(resources = "/files/csv/namesForTests.csv", numLinesToSkip = 1)
     void positiveMinimumDataDifferentNamesLengthTest(String firstName, String lastName) {
