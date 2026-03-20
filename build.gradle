@@ -89,7 +89,8 @@ tasks.test {
             "browser": System.getProperty("browser", "chrome"),
             "browser.version": System.getProperty("browser.version", "latest"),
             "resolution": System.getProperty("resolution", "1920x1080"),
-            "video.enabled": System.getProperty("video.enabled", "false")
+            "video.enabled": System.getProperty("video.enabled", "false"),
+            "selenide.remote": System.getProperty("selenide.remote")
     ]
 
     useJUnitPlatform {

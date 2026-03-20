@@ -37,7 +37,8 @@ class TestBase {
         Configuration.browserCapabilities = browserOptions; // базовые опции
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "normal";
-        if (System.getProperty("selenide.remote") == null) {
+        String remoteUrl = System.getProperty("selenide.remote");
+        if (remoteUrl == null || remoteUrl.isBlank()) {
             Configuration.browserVersion = "144";
         } else {
             DesiredCapabilities merged = new DesiredCapabilities();
@@ -48,6 +49,7 @@ class TestBase {
                             "enableVNC", true,
                             "enableVideo", true));
             Configuration.browserCapabilities = merged;
+            Configuration.remote = remoteUrl;
         }
     }
 
