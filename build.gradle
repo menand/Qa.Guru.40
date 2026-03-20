@@ -94,10 +94,10 @@ tasks.test {
     ]
 
     useJUnitPlatform {
-        // Поддержка тегов: используем параметр groups
         String tags = System.getProperty("groups")
         if (tags != null && !tags.isEmpty()) {
-            includeTags tags.split(",") as List<String>
+            def tagList = tags.split(",").collect { it.trim() }
+            includeTags(tagList as String[])
         }
     }
 
