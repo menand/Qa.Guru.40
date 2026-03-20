@@ -27,3 +27,4 @@ gradlew.bat
 /gradle
 /.gradle
 /build
+/allure-results
