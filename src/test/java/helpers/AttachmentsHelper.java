@@ -12,8 +12,10 @@ import java.net.URL;
 import java.util.stream.Collectors;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
 public class AttachmentsHelper {
     public static boolean videoEnabled;
@@ -30,8 +32,27 @@ public class AttachmentsHelper {
 
     @Attachment(value = "Browser console logs", type = "text/plain")
     public static String browserConsoleLogs() {
-        LogEntries logs = WebDriverRunner.getWebDriver().manage().logs().get("browser");
-        return logs.getAll().stream().map(LogEntry::toString).collect(Collectors.joining("\n"));
+        try {
+            // Проверяем доступные типы логов
+            var driver = WebDriverRunner.getWebDriver();
+            var availableLogTypes = driver.manage().logs().getAvailableLogTypes();
+
+            if (!availableLogTypes.contains(LogType.BROWSER)) {
+                return "Browser logs not available. Available log types: " + availableLogTypes;
+            }
+
+            LogEntries logs = driver.manage().logs().get(LogType.BROWSER);
+            String result = logs.getAll().stream()
+                    .map(LogEntry::toString)
+                    .collect(Collectors.joining("\n"));
+
+            return result.isEmpty() ? "No browser console logs" : result;
+
+        } catch (UnsupportedCommandException e) {
+            return "Browser logs not supported by remote driver: " + e.getMessage();
+        } catch (Exception e) {
+            return "Failed to retrieve browser logs: " + e.getMessage();
+        }
     }
 
     @Attachment(value = "URL", type = "text/plain")
