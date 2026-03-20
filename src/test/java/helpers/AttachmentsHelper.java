@@ -30,8 +30,15 @@ public class AttachmentsHelper {
 
     @Attachment(value = "Browser console logs", type = "text/plain")
     public static String browserConsoleLogs() {
-        LogEntries logs = WebDriverRunner.getWebDriver().manage().logs().get("browser");
-        return logs.getAll().stream().map(LogEntry::toString).collect(Collectors.joining("\n"));
+        try {
+            return String.join("\n", WebDriverRunner.getWebDriver().manage().logs().get(LogType.BROWSER).getAll()
+                    .stream()
+                    .map(LogEntry::toString)
+                    .collect(Collectors.toList()));
+        } catch (Exception e) {
+            // Selenoid может не поддерживать логирование
+            return "Console logs not available: " + e.getMessage();
+        }
     }
 
     @Attachment(value = "URL", type = "text/plain")
