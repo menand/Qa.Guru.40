@@ -29,11 +29,6 @@ class TestBase {
         Configuration.browserSize = resolution;
         MutableCapabilities browserOptions = createBrowserOptions(browser);
 
-        // Включаем логи браузера
-        Map<String, Object> loggingPrefs = new HashMap<>();
-        loggingPrefs.put("browser", "ALL");
-        browserOptions.setCapability("goog:loggingPrefs", loggingPrefs);
-
         Configuration.browserCapabilities = browserOptions; // базовые опции
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "normal";
