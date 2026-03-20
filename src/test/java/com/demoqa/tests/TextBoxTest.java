@@ -6,6 +6,10 @@ import com.demoqa.pages.TextBoxPage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("REGRESS")
+@Tag("UI")
+@Tag("DEMO_QA")
+@Tag("TEXT_BOX")
 class TextBoxTest extends TestBase {
     private final TextBoxPage textBoxPage = new TextBoxPage();
 

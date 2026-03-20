@@ -7,8 +7,12 @@ import files.models.JsonShop;
 import files.models.StaffJson;
 import java.io.InputStream;
 import java.util.List;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("REGRESS")
+@Tag("FILES")
+@Tag("JSON")
 class JsonFileTest {
 
     private static final ObjectMapper mapper = new ObjectMapper();

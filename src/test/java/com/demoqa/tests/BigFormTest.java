@@ -11,6 +11,10 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@Tag("REGRESS")
+@Tag("UI")
+@Tag("DEMO_QA")
+@Tag("BIG_FORM")
 @DisplayName("Проверка большой формы регистрации")
 class BigFormTest extends TestBase {
     private final RegistrationPage registrationPage = new RegistrationPage();
@@ -47,15 +51,15 @@ class BigFormTest extends TestBase {
                 .checkResult("State and City", state + " " + city);
     }
 
-
     @ParameterizedTest(name = "Проверка регистрации с разными языками: {arguments}")
-    @CsvSource(value = {
-            "John, Doe",              // Английский
-            "José, García",           // Испанский
-            "王, 小明",                // Китайский
-            "山田, 太郎",              // Японский
-            "Matti, Meikäläinen"      // Финский
-    })
+    @CsvSource(
+            value = {
+                "John, Doe", // Английский
+                "José, García", // Испанский
+                "王, 小明", // Китайский
+                "山田, 太郎", // Японский
+                "Matti, Meikäläinen" // Финский
+            })
     void positiveMinimumDataAllLanguageTest(String firstName, String lastName) {
         registrationPage
                 .openForm()

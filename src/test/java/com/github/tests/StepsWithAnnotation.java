@@ -4,7 +4,11 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Tag;
 
+@Tag("REGRESS")
+@Tag("UI")
+@Tag("GITHUB")
 class StepsWithAnnotation {
 
     @Step("Открываем github.com")

@@ -16,8 +16,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.poi.ss.usermodel.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("REGRESS")
+@Tag("FILES")
+@Tag("ZIP")
 class ZipFileTest {
     private final ClassLoader cl = getClass().getClassLoader();
     private final String ZIPFILENAME = "files/zip/FilesExample.zip";

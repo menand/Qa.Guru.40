@@ -16,6 +16,8 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 
 public class AttachmentsHelper {
+    public static boolean videoEnabled;
+
     @Attachment(value = "{attachName}", type = "image/png", fileExtension = "png")
     public static byte[] screenshotAs(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
@@ -59,7 +61,7 @@ public class AttachmentsHelper {
         pageSource();
         browserConsoleLogs();
         url();
-        addVideo();
+        if (videoEnabled) addVideo();
     }
 
     public static void enableClickHighlight() {

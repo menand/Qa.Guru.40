@@ -84,12 +84,22 @@ dependencies {
 }
 
 tasks.test {
+    // Пробрасываем нужные системные свойства в тесты
+    systemProperties = [
+            "browser": System.getProperty("browser", "chrome"),
+            "browser.version": System.getProperty("browser.version", "latest"),
+            "resolution": System.getProperty("resolution", "1920x1080"),
+            "video.enabled": System.getProperty("video.enabled", "false")
+    ]
+
     useJUnitPlatform {
-        if (System.getProperty("includeTags")) {
-            includeTags System.getProperty("includeTags")
+        // Поддержка тегов: используем параметр groups
+        String tags = System.getProperty("groups")
+        if (tags != null && !tags.isEmpty()) {
+            includeTags tags.split(",") as List<String>
         }
     }
-    systemProperties(System.getProperties())
+
     dependsOn(tasks.spotlessApply)
 
     testLogging {
@@ -97,7 +107,6 @@ tasks.test {
         exceptionFormat = "short"
     }
 }
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
 }
