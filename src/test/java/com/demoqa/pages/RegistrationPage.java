@@ -97,28 +97,22 @@ public class RegistrationPage extends DemoqaComParentPage {
 
     public RegistrationPage uploadPicture(String picturePath) {
         try {
-            // Получаем ресурс как InputStream
+            String fileName = picturePath.substring(picturePath.lastIndexOf('/') + 1);
             InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(picturePath);
             if (resourceStream == null) {
                 throw new IllegalArgumentException("Resource not found: " + picturePath);
             }
 
-            // Создаём временный файл
-            File tempFile = File.createTempFile("upload-", ".tmp");
-            tempFile.deleteOnExit(); // удалится при завершении JVM
-
-            // Копируем содержимое во временный файл
+            File tempFile = new File(System.getProperty("java.io.tmpdir"), fileName);
+            tempFile.deleteOnExit();
             Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            // Для удалённого Firefox дополнительно устанавливаем FileDetector (Selenide обычно делает это сам, но для надёжности)
             var driver = WebDriverRunner.getWebDriver();
             if (driver instanceof RemoteWebDriver) {
                 ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
             }
 
-            // Загружаем файл
             uploadPictureInput.uploadFile(tempFile);
-
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload picture: " + picturePath, e);
         }
