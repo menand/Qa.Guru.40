@@ -57,7 +57,13 @@ class TestBase {
                 chromeOpts.setCapability("goog:loggingPrefs", loggingPrefs);
                 return chromeOpts;
             case "firefox":
-                return new FirefoxOptions();
+                FirefoxOptions firefoxOpts = new FirefoxOptions();
+                // Включаем поддержку загрузки файлов через LocalFileDetector
+                firefoxOpts.addPreference("dom.file.createInChild", true);
+                // Дополнительные настройки для стабильности
+                firefoxOpts.addPreference("browser.download.folderList", 2);
+                firefoxOpts.addPreference("browser.download.dir", "/home/seluser/Downloads");
+                return firefoxOpts;
             default:
                 return new DesiredCapabilities();
         }
