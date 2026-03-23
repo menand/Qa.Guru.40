@@ -5,10 +5,15 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.enableClickHighlight;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ResultsTableComponent;
 import com.demoqa.testData.Subject;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +39,14 @@ public class RegistrationPage extends DemoqaComParentPage {
 
     public RegistrationPage openForm() {
         open("");
+
+        if (Configuration.remote != null) {
+            var driver = WebDriverRunner.getWebDriver();
+            if (driver instanceof RemoteWebDriver remoteDriver) {
+                remoteDriver.setFileDetector(new LocalFileDetector());
+            }
+        }
+
         enableClickHighlight();
         $(byText("Forms")).click();
         removeBanners();

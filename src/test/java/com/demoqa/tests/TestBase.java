@@ -81,11 +81,5 @@ class TestBase {
     @BeforeEach
     void prepareTestDate() {
         TestData.prepareTestDate();
-        if (Configuration.remote != null) {
-            var driver = WebDriverRunner.getWebDriver();
-            if (driver instanceof RemoteWebDriver remoteDriver) {
-                remoteDriver.setFileDetector(new LocalFileDetector());
-            }
-        }
     }
 }
