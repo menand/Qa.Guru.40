@@ -104,17 +104,25 @@ public class RegistrationPage extends DemoqaComParentPage {
             if (resourceStream == null) {
                 throw new IllegalArgumentException("Resource not found: " + picturePath);
             }
-
+            // Создаём временный файл с оригинальным именем в системной temp-директории
             File tempFile = new File(System.getProperty("java.io.tmpdir"), fileName);
-            tempFile.deleteOnExit();
+            if (tempFile.exists()) {
+                tempFile.delete();
+            }
             Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            // Устанавливаем FileDetector только для удалённого драйвера (Selenoid)
+            if (!tempFile.exists()) {
+                throw new RuntimeException(
+                        "Failed to create temp file: " + tempFile.getAbsolutePath());
+            }
+            // Логируем путь для отладки
+            System.out.println("Uploading file: " + tempFile.getAbsolutePath());
             var driver = WebDriverRunner.getWebDriver();
+            // Устанавливаем LocalFileDetector только для удалённого драйвера (Selenoid)
             if (Configuration.remote != null && driver instanceof RemoteWebDriver) {
                 ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+                System.out.println("LocalFileDetector set for remote driver");
             }
-
+            // Загружаем файл
             uploadPictureInput.uploadFile(tempFile);
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload picture: " + picturePath, e);
