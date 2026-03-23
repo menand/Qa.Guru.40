@@ -6,10 +6,17 @@ import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.enableClickHighlight;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ResultsTableComponent;
 import com.demoqa.testData.Subject;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,7 +96,32 @@ public class RegistrationPage extends DemoqaComParentPage {
     }
 
     public RegistrationPage uploadPicture(String picturePath) {
-        uploadPictureInput.uploadFromClasspath(picturePath);
+        try {
+            // Получаем ресурс как InputStream
+            InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(picturePath);
+            if (resourceStream == null) {
+                throw new IllegalArgumentException("Resource not found: " + picturePath);
+            }
+
+            // Создаём временный файл
+            File tempFile = File.createTempFile("upload-", ".tmp");
+            tempFile.deleteOnExit(); // удалится при завершении JVM
+
+            // Копируем содержимое во временный файл
+            Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            // Для удалённого Firefox дополнительно устанавливаем FileDetector (Selenide обычно делает это сам, но для надёжности)
+            var driver = WebDriverRunner.getWebDriver();
+            if (driver instanceof RemoteWebDriver) {
+                ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+            }
+
+            // Загружаем файл
+            uploadPictureInput.uploadFile(tempFile);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload picture: " + picturePath, e);
+        }
         return this;
     }
 
