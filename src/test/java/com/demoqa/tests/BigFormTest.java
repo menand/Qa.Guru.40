@@ -19,7 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class BigFormTest extends TestBase {
     private final RegistrationPage registrationPage = new RegistrationPage();
 
-    @Tag("REGRESS")
+    @Tag("ONE_TEST")
     @ParameterizedTest(name = "Проверка регистрации с полом: {0}")
     @ValueSource(strings = {"Male", "Female", "Other"})
     @DisplayName("Проверка максимального набора данных")

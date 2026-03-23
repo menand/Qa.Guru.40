@@ -5,14 +5,12 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.enableClickHighlight;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ResultsTableComponent;
 import com.demoqa.testData.Subject;
-import org.openqa.selenium.remote.LocalFileDetector;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -20,6 +18,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class RegistrationPage extends DemoqaComParentPage {
     private final CalendarComponent calendar = new CalendarComponent();
@@ -40,7 +40,7 @@ public class RegistrationPage extends DemoqaComParentPage {
             cityDropdown = $("#city"),
             submitButton = $("#submit");
 
-        public RegistrationPage openForm() {
+    public RegistrationPage openForm() {
         open("");
         enableClickHighlight();
         $(byText("Forms")).click();
@@ -82,11 +82,12 @@ public class RegistrationPage extends DemoqaComParentPage {
     }
 
     public RegistrationPage setSubjects(List<Subject> subjects) {
-        subjects.forEach(subject -> {
-            String displayName = subject.getDisplayName();
-            subjectInput.setValue(displayName.substring(0, 2));
-            subjectAutoComplete.$(byText(displayName)).click();
-        });
+        subjects.forEach(
+                subject -> {
+                    String displayName = subject.getDisplayName();
+                    subjectInput.setValue(displayName.substring(0, 2));
+                    subjectAutoComplete.$(byText(displayName)).click();
+                });
         return this;
     }
 
@@ -98,7 +99,8 @@ public class RegistrationPage extends DemoqaComParentPage {
     public RegistrationPage uploadPicture(String picturePath) {
         try {
             String fileName = picturePath.substring(picturePath.lastIndexOf('/') + 1);
-            InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(picturePath);
+            InputStream resourceStream =
+                    getClass().getClassLoader().getResourceAsStream(picturePath);
             if (resourceStream == null) {
                 throw new IllegalArgumentException("Resource not found: " + picturePath);
             }
@@ -107,8 +109,9 @@ public class RegistrationPage extends DemoqaComParentPage {
             tempFile.deleteOnExit();
             Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
+            // Устанавливаем FileDetector только для удалённого драйвера (Selenoid)
             var driver = WebDriverRunner.getWebDriver();
-            if (driver instanceof RemoteWebDriver) {
+            if (Configuration.remote != null && driver instanceof RemoteWebDriver) {
                 ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
             }
 
@@ -157,9 +160,8 @@ public class RegistrationPage extends DemoqaComParentPage {
     }
 
     public RegistrationPage checkResult(String key, List<Subject> subjects) {
-        String value = subjects.stream()
-                .map(Subject::getDisplayName)
-                .collect(Collectors.joining(", "));
+        String value =
+                subjects.stream().map(Subject::getDisplayName).collect(Collectors.joining(", "));
         resultsTable.checkResult(key, value);
         return this;
     }
