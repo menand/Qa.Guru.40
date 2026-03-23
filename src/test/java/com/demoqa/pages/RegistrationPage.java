@@ -5,21 +5,13 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.enableClickHighlight;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ResultsTableComponent;
 import com.demoqa.testData.Subject;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.remote.LocalFileDetector;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class RegistrationPage extends DemoqaComParentPage {
     private final CalendarComponent calendar = new CalendarComponent();
@@ -97,36 +89,7 @@ public class RegistrationPage extends DemoqaComParentPage {
     }
 
     public RegistrationPage uploadPicture(String picturePath) {
-        try {
-            String fileName = picturePath.substring(picturePath.lastIndexOf('/') + 1);
-            InputStream resourceStream =
-                    getClass().getClassLoader().getResourceAsStream(picturePath);
-            if (resourceStream == null) {
-                throw new IllegalArgumentException("Resource not found: " + picturePath);
-            }
-            // Создаём временный файл с оригинальным именем в системной temp-директории
-            File tempFile = new File(System.getProperty("java.io.tmpdir"), fileName);
-            if (tempFile.exists()) {
-                tempFile.delete();
-            }
-            Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            if (!tempFile.exists()) {
-                throw new RuntimeException(
-                        "Failed to create temp file: " + tempFile.getAbsolutePath());
-            }
-            // Логируем путь для отладки
-            System.out.println("Uploading file: " + tempFile.getAbsolutePath());
-            var driver = WebDriverRunner.getWebDriver();
-            // Устанавливаем LocalFileDetector только для удалённого драйвера (Selenoid)
-            if (Configuration.remote != null && driver instanceof RemoteWebDriver) {
-                ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
-                System.out.println("LocalFileDetector set for remote driver");
-            }
-            // Загружаем файл
-            uploadPictureInput.uploadFile(tempFile);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to upload picture: " + picturePath, e);
-        }
+        uploadPictureInput.uploadFromClasspath(picturePath);
         return this;
     }
 
