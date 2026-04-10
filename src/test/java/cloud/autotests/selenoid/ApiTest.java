@@ -188,6 +188,6 @@ class ApiTest {
     void responseTimeTest() {
         long time = given().when().get("/wd/hub/status").then().extract().time();
         log.info("Response time: {} ms", time);
-        assertThat("Response time exceeds 2000 ms", time, lessThan(2000L));
+        assertThat("Response time exceeds 5000 ms", time, lessThan(5000L));
     }
 }

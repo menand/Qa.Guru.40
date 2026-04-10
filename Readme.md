@@ -16,6 +16,29 @@
 
 ---
 
+## 🌐 API Тесты
+
+Проект теперь включает API тесты для сервиса Selenoid, доступного по адресу [https://selenoid.autotests.cloud](https://selenoid.autotests.cloud).
+
+### 🧪 Покрытые тест-кейсы
+- Проверка сообщения статуса: версия Selenoid и дата сборки не в будущем
+- Проверка флага 'ready' = true
+- JSON Schema validation
+- Неверный пароль → 401
+- Пустой пароль → 401
+- Отсутствие авторизации → 401
+- Несуществующий эндпоинт → 404
+- Проверка времени ответа
+
+### 🛠 Используемые технологии
+- REST Assured
+- Allure
+- JUnit 6
+
+> 📁 Тесты расположены в `src/test/java/cloud/autotests/selenoid/ApiTest.java`
+
+---
+
 ## 🛠 Технологии
 
 - **Java 21**
