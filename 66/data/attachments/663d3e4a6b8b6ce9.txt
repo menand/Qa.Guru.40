@@ -1,0 +1,4 @@
+[2026-04-10T17:47:07.969Z] [WARNING] https://github.com/ - [.WebGL-0x124000284d00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2026-04-10T17:47:08.089Z] [WARNING] https://github.com/ - [.WebGL-0x124000284d00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2026-04-10T17:47:08.152Z] [WARNING] https://github.com/ - [.WebGL-0x124000284d00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2026-04-10T17:47:08.236Z] [WARNING] https://github.com/ - [.WebGL-0x124000284d00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
