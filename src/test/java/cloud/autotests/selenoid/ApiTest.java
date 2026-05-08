@@ -184,7 +184,7 @@ class ApiTest {
     @Owner("Andrey Menshov")
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Проверка времени ответа")
-    @Description("Убеждаемся, что запрос к /wd/hub/status выполняется быстрее 2 секунд")
+    @Description("Убеждаемся, что запрос к /wd/hub/status выполняется быстрее 5 секунд")
     void responseTimeTest() {
         long time = given().when().get("/wd/hub/status").then().extract().time();
         log.info("Response time: {} ms", time);

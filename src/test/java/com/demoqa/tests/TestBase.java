@@ -4,7 +4,6 @@ import static com.codeborne.selenide.Selenide.*;
 import static helpers.AttachmentsHelper.videoEnabled;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.testData.TestData;
 import helpers.AttachmentsHelper;
 import java.util.HashMap;
@@ -16,8 +15,6 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.LocalFileDetector;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 class TestBase {
 
@@ -45,7 +42,7 @@ class TestBase {
                     "selenoid:options",
                     Map.of(
                             "enableVNC", true,
-                            "enableVideo", true));
+                            "enableVideo", videoEnabled));
             Configuration.browserCapabilities = merged;
             Configuration.remote = remoteUrl;
         }

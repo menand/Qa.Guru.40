@@ -107,8 +107,6 @@ tasks.test {
         }
     }
 
-    dependsOn(tasks.spotlessApply)
-
     testLogging {
         events = ["passed", "failed", "skipped"]
         exceptionFormat = "short"

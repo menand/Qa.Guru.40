@@ -44,7 +44,7 @@ class GitHubTestBase {
                     "selenoid:options",
                     Map.of(
                             "enableVNC", true,
-                            "enableVideo", true));
+                            "enableVideo", videoEnabled));
             Configuration.browserCapabilities = merged;
             Configuration.remote = remoteUrl;
         }
